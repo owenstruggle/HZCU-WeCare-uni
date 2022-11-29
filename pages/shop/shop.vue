@@ -5,11 +5,20 @@
       <!-- 循环渲染轮播图的 item 项 -->
       <swiper-item v-for="(item, i) in swiperList" :key="i">
         <view class="swiper-item">
-          <!-- 动态绑定图片的 src 属性 -->
           <image :src="item.imageSrc"></image>
         </view>
       </swiper-item>
     </swiper>
+
+    <!-- 类别区域 -->
+    <view class="category-list">
+      <view v-for="(item, i) in categoryList" :key="i">
+        <view class="category-item">
+          <image :src="item.ccImageSrc"></image>
+          <text>{{item.ccName}}</text>
+        </view>
+      </view>
+    </view>
   </view>
 </template>
 
@@ -24,10 +33,12 @@
     data() {
       return {
         swiperList: [], // 轮播图的数据列表，默认为空数组
+        categoryList: [], // 频道类别
       };
     },
     onLoad() {
       this.getSwiperList() // 在小程序页面刚加载的时候，调用获取轮播图数据的方法
+      this.getcategoryList() // 在小程序页面刚加载的时候，调用获取轮播图数据的方法
     },
     methods: {
       // 获取轮播图数据的方法
@@ -45,6 +56,20 @@
           this.swiperList[i].imageSrc = this.imageSourceSrc + this.swiperList[i].imageSrc
         }
       },
+      async getcategoryList() {
+        const res = await uni.$http.get('/shop/category')
+        if (res.statusCode !== 200) {
+          return uni.showToast({
+            title: '数据请求失败！',
+            duration: 1500,
+            icon: 'none',
+          })
+        }
+        this.categoryList = res.data
+        for (var i = 0; i < this.categoryList.length; i++) {
+          this.categoryList[i].ccImageSrc = this.imageSourceSrc + this.categoryList[i].ccImageSrc
+        }
+      }
     },
   }
 </script>
@@ -57,6 +82,38 @@
     image {
       width: 100%;
       height: 100%;
+    }
+  }
+
+  .category-list {
+    display: flex;
+    flex-wrap: wrap;
+    border-top: 1rpx solid #efefef;
+    border-left: 1rpx solid #efefef;
+    background-color: #e1e1e1;
+    margin: 10rpx 10rpx;
+    border-radius: 10rpx;
+
+    .category-item {
+      width: 365rpx;
+      height: 200rpx;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-right: 1rpx solid #efefef;
+      border-bottom: 1rpx solid #efefef;
+      box-sizing: border-box;
+
+      image {
+        width: 80rpx;
+        height: 80rpx;
+      }
+
+      text {
+        font-size: 40rpx;
+        margin: 18rpx;
+      }
     }
   }
 </style>
