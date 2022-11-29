@@ -12,13 +12,38 @@
     "path": "pages/my/my",
     "style": {}
   }],
+  "tabBar": {
+    "selectedColor": "#41A863",
+    "list": [{
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "static/tab_icons/home.png",
+        "selectedIconPath": "static/tab_icons/home-active.png"
+      },
+      {
+        "pagePath": "pages/contacts/contacts",
+        "text": "联系人",
+        "iconPath": "static/tab_icons/contacts.png",
+        "selectedIconPath": "static/tab_icons/contacts-active.png"
+      },
+      {
+        "pagePath": "pages/shop/shop",
+        "text": "商店",
+        "iconPath": "static/tab_icons/shop.png",
+        "selectedIconPath": "static/tab_icons/shop-active.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "static/tab_icons/my.png",
+        "selectedIconPath": "static/tab_icons/my-active.png"
+      }
+    ]
+  },
   "globalStyle": {
-    "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
-    "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8",
-    "app-plus": {
-      "background": "#efeff4"
-    }
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "微怀",
+    "navigationBarBackgroundColor": "#41A863",
+    "backgroundColor": "#FFFFFF"
   }
 }
