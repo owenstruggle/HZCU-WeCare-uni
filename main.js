@@ -1,4 +1,4 @@
-
+import store from './store/store.js'
 // #ifndef VUE3
 import Vue from 'vue'
 import App from './App'
@@ -8,7 +8,8 @@ Vue.config.productionTip = false
 App.mpType = 'app'
 
 const app = new Vue({
-    ...App
+    ...App,
+    store,
 })
 app.$mount()
 // #endif
@@ -23,3 +24,21 @@ export function createApp() {
   }
 }
 // #endif
+
+import { $http } from '@escook/request-miniprogram'
+
+uni.$http = $http
+// 配置请求根路径
+$http.baseUrl = 'https://localhost:8082'
+
+// 请求开始之前做一些事情
+$http.beforeRequest = function (options) {
+  uni.showLoading({
+    title: '数据加载中...',
+  })
+}
+
+// 请求完成之后做一些事情
+$http.afterRequest = function () {
+  uni.hideLoading()
+}
