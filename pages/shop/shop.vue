@@ -9,7 +9,7 @@
       <!-- 循环渲染轮播图的 item 项 -->
       <swiper-item v-for="(item, i) in swiperList" :key="i">
         <view class="swiper-item" @click="channelDetailClick(item.channelId)">
-          <image :src="item.channelImageSrc"></image>
+          <image :src="imageSourceSrc + item.channelImageSrc"></image>
         </view>
       </swiper-item>
     </swiper>
@@ -17,8 +17,8 @@
     <!-- 类别区域 -->
     <view class="category-list">
       <view v-for="(item, i) in categoryList" :key="i">
-        <view class="category-item" @click="channelCategoryClick(item.channelCategoryId)">
-          <image :src="item.channelCategoryImageSrc"></image>
+        <view class="category-item" @click="channelCategoryClick(item.channelCategoryName)">
+          <image :src="imageSourceSrc + item.channelCategoryImageSrc"></image>
           <text>{{item.channelCategoryName}}</text>
         </view>
       </view>
@@ -62,9 +62,6 @@
           })
         }
         this.swiperList = res.data
-        for (var i = 0; i < this.swiperList.length; i++) {
-          this.swiperList[i].channelImageSrc = this.imageSourceSrc + this.swiperList[i].channelImageSrc
-        }
       },
       async getcategoryList() {
         const res = await uni.$http.get('/shop/category')
@@ -76,14 +73,10 @@
           })
         }
         this.categoryList = res.data
-        for (var i = 0; i < this.categoryList.length; i++) {
-          this.categoryList[i].channelCategoryImageSrc = this.imageSourceSrc + this.categoryList[i]
-            .channelCategoryImageSrc
-        }
       },
-      channelCategoryClick(channelCategoryId) {
+      channelCategoryClick(channelCategoryName) {
         uni.navigateTo({
-          url: '/subpkg/channel_list/channel_list?channelCategoryId=' + channelCategoryId
+          url: '/subpkg/channel_list/channel_list?query=' + channelCategoryName
         })
       }, 
       channelDetailClick(channelId) {

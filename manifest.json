@@ -52,7 +52,11 @@
         /* 小程序特有相关 */
         "appid" : "wxf3f05c003bf16077",
         "setting" : {
-            "urlCheck" : false
+            "urlCheck" : false,
+            "minified" : true,
+            "postcss" : true,
+            "es6" : true,
+            "ignoreDevUnusedFiles":false
         },
         "usingComponents" : true
     },
