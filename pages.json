@@ -11,7 +11,21 @@
   }, {
     "path": "pages/my/my",
     "style": {}
-  }],
+  }    ,{
+            "path" : "subpkg/search/search",
+            "style" : {}
+        }
+        ,{
+            "path" : "subpkg/channel_detail/channel_detail",
+            "style" : {
+              
+            }
+        }
+        ,{
+            "path" : "subpkg/channel_list/channel_list",
+            "style" : {}
+        }
+    ],
   "tabBar": {
     "selectedColor": "#41A863",
     "list": [{

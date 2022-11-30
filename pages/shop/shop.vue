@@ -1,11 +1,15 @@
 <template>
   <view>
+    <!-- 使用自定义的搜索组件 -->
+    <view class="search-box">
+      <my-search @click="gotoSearch"></my-search>
+    </view>
     <!-- 轮播图区域 -->
     <swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" :circular="true">
       <!-- 循环渲染轮播图的 item 项 -->
       <swiper-item v-for="(item, i) in swiperList" :key="i">
         <view class="swiper-item">
-          <image :src="item.imageSrc"></image>
+          <image :src="item.channelImageSrc"></image>
         </view>
       </swiper-item>
     </swiper>
@@ -14,8 +18,8 @@
     <view class="category-list">
       <view v-for="(item, i) in categoryList" :key="i">
         <view class="category-item">
-          <image :src="item.ccImageSrc"></image>
-          <text>{{item.ccName}}</text>
+          <image :src="item.channelCategoryImageSrc"></image>
+          <text>{{item.channelCategoryName}}</text>
         </view>
       </view>
     </view>
@@ -41,6 +45,12 @@
       this.getcategoryList() // 在小程序页面刚加载的时候，调用获取轮播图数据的方法
     },
     methods: {
+      // 跳转到分包中的搜索页面
+      gotoSearch() {
+        uni.navigateTo({
+          url: '/subpkg/search/search'
+        })
+      },
       // 获取轮播图数据的方法
       async getSwiperList() {
         const res = await uni.$http.get('/shop/swiperdata')
@@ -53,7 +63,7 @@
         }
         this.swiperList = res.data
         for (var i = 0; i < this.swiperList.length; i++) {
-          this.swiperList[i].imageSrc = this.imageSourceSrc + this.swiperList[i].imageSrc
+          this.swiperList[i].channelImageSrc = this.imageSourceSrc + this.swiperList[i].channelImageSrc
         }
       },
       async getcategoryList() {
@@ -67,7 +77,8 @@
         }
         this.categoryList = res.data
         for (var i = 0; i < this.categoryList.length; i++) {
-          this.categoryList[i].ccImageSrc = this.imageSourceSrc + this.categoryList[i].ccImageSrc
+          this.categoryList[i].channelCategoryImageSrc = this.imageSourceSrc + this.categoryList[i]
+            .channelCategoryImageSrc
         }
       }
     },
@@ -75,6 +86,12 @@
 </script>
 
 <style lang="scss">
+  .search-box {
+    position: sticky;  // 设置定位效果为“吸顶”
+    top: 0;  // 吸顶的“位置”
+    z-index: 999;  // 提高层级，防止被轮播图覆盖
+  }
+
   swiper {
     height: 330rpx;
 
@@ -104,6 +121,7 @@
       border-right: 1rpx solid #efefef;
       border-bottom: 1rpx solid #efefef;
       box-sizing: border-box;
+      border-radius: 10rpx;
 
       image {
         width: 80rpx;
