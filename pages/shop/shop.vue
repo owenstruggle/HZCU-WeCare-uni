@@ -8,7 +8,7 @@
     <swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" :circular="true">
       <!-- 循环渲染轮播图的 item 项 -->
       <swiper-item v-for="(item, i) in swiperList" :key="i">
-        <view class="swiper-item">
+        <view class="swiper-item" @click="channelDetailClick(item.channelId)">
           <image :src="item.channelImageSrc"></image>
         </view>
       </swiper-item>
@@ -17,7 +17,7 @@
     <!-- 类别区域 -->
     <view class="category-list">
       <view v-for="(item, i) in categoryList" :key="i">
-        <view class="category-item">
+        <view class="category-item" @click="channelCategoryClick(item.channelCategoryId)">
           <image :src="item.channelCategoryImageSrc"></image>
           <text>{{item.channelCategoryName}}</text>
         </view>
@@ -80,6 +80,16 @@
           this.categoryList[i].channelCategoryImageSrc = this.imageSourceSrc + this.categoryList[i]
             .channelCategoryImageSrc
         }
+      },
+      channelCategoryClick(channelCategoryId) {
+        uni.navigateTo({
+          url: '/subpkg/channel_list/channel_list?channelCategoryId=' + channelCategoryId
+        })
+      }, 
+      channelDetailClick(channelId) {
+        uni.navigateTo({
+          url: '/subpkg/channel_detail/channel_detail?channelId=' + channelId
+        })
       }
     },
   }

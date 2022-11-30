@@ -11,21 +11,20 @@
   }, {
     "path": "pages/my/my",
     "style": {}
-  }    ,{
-            "path" : "subpkg/search/search",
-            "style" : {}
-        }
-        ,{
-            "path" : "subpkg/channel_detail/channel_detail",
-            "style" : {
-              
-            }
-        }
-        ,{
-            "path" : "subpkg/channel_list/channel_list",
-            "style" : {}
-        }
-    ],
+  }],
+  "subPackages": [{
+    "root": "subpkg",
+    "pages": [{
+      "path": "channel_detail/channel_detail",
+      "style": {}
+    }, {
+      "path": "channel_list/channel_list",
+      "style": {}
+    }, {
+      "path": "search/search",
+      "style": {}
+    }]
+  }],
   "tabBar": {
     "selectedColor": "#41A863",
     "list": [{

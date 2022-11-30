@@ -1,6 +1,6 @@
 <template>
   <view>
-    
+    channel_detail
   </view>
 </template>
 
