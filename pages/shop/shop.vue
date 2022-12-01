@@ -9,7 +9,7 @@
       <!-- 循环渲染轮播图的 item 项 -->
       <swiper-item v-for="(item, i) in swiperList" :key="i">
         <view class="swiper-item" @click="channelDetailClick(item.channelId)">
-          <image :src="imageSourceSrc + item.channelImageSrc"></image>
+          <image :src="sourceSrc + item.channelImageSrc"></image>
         </view>
       </swiper-item>
     </swiper>
@@ -18,7 +18,7 @@
     <view class="category-list">
       <view v-for="(item, i) in categoryList" :key="i">
         <view class="category-item" @click="channelCategoryClick(item.channelCategoryName)">
-          <image :src="imageSourceSrc + item.channelCategoryImageSrc"></image>
+          <image :src="sourceSrc + item.channelCategoryImageSrc"></image>
           <text>{{item.channelCategoryName}}</text>
         </view>
       </view>
@@ -32,7 +32,7 @@
   } from 'vuex'
   export default {
     computed: {
-      ...mapState('m_share', ['imageSourceSrc']),
+      ...mapState('m_share', ['sourceSrc']),
     },
     data() {
       return {

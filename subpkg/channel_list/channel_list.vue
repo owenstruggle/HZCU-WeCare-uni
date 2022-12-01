@@ -9,13 +9,7 @@
 </template>
 
 <script>
-  import {
-    mapState
-  } from 'vuex'
   export default {
-    computed: {
-      ...mapState('m_share', ['imageSourceSrc']),
-    },
     onLoad(options) {
       // 调用获取商品列表数据的方法
       this.getChannelsList()

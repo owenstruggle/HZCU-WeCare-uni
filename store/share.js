@@ -4,7 +4,7 @@ export default {
 
   // 模块的 state 数据
   state: () => ({
-    imageSourceSrc: 'https://localhost:8082/share',
+    sourceSrc: 'https://localhost:8082/share',
   }),
 
   // 模块的 mutations 方法

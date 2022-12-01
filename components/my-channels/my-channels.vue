@@ -1,7 +1,7 @@
 <template>
   <view class="channels-item">
     <!-- 商品左侧图片区域 -->
-    <image :src="imageSourceSrc + channels.channelImageSrc" class="channels-pic"></image>
+    <image :src="sourceSrc + channels.channelImageSrc" class="channels-pic"></image>
     <!-- 商品标题 -->
     <view class="channels-name">{{channels.channelName}}</view>
   </view>
@@ -14,7 +14,7 @@
   export default {
     name: "my-channels",
     computed: {
-      ...mapState('m_share', ['imageSourceSrc']),
+      ...mapState('m_share', ['sourceSrc']),
     },
     props: {
       channels: {
@@ -23,7 +23,7 @@
     },
     data() {
       return {};
-    }
+    },
   }
 </script>
 
