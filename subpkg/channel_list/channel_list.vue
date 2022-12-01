@@ -5,6 +5,9 @@
         <my-channels :channels="item"></my-channels>
       </view>
     </view>
+    <view v-show="total === 0" class="no-data-image">
+      <image src="../../static/no_data.png"></image>
+    </view>
   </view>
 </template>
 
@@ -79,5 +82,13 @@
 </script>
 
 <style lang="scss">
-
+.no-data-image {
+  width: 750rpx;
+  height: 1300rpx;
+  display: flex;
+  justify-content: center;
+  image {
+    align-self: center;
+  }
+}
 </style>
