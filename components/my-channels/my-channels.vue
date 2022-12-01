@@ -1,28 +1,24 @@
 <template>
   <view class="channels-item">
     <!-- 商品左侧图片区域 -->
-    <image :src="sourceSrc + channels.channelImageSrc" class="channels-pic"></image>
+    <image :src="basePath + channels.channelImageSrc" class="channels-pic"></image>
     <!-- 商品标题 -->
     <view class="channels-name">{{channels.channelName}}</view>
   </view>
 </template>
 
 <script>
-  import {
-    mapState
-  } from 'vuex'
   export default {
     name: "my-channels",
-    computed: {
-      ...mapState('m_share', ['sourceSrc']),
-    },
     props: {
       channels: {
         type: Object
       },
     },
     data() {
-      return {};
+      return {
+        basePath: getApp().globalData.basePath,
+      };
     },
   }
 </script>

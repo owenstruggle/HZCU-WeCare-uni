@@ -2,7 +2,7 @@
   <view>
     <!-- 预览图 -->
     <view class="channel-image">
-      <image :src="sourceSrc + channel_info.channelImageSrc"></image>
+      <image :src="basePath + channel_info.channelImageSrc"></image>
     </view>
 
     <!-- 简介 -->
@@ -20,21 +20,13 @@
 </template>
 
 <script>
-  import {
-    mapState
-  } from 'vuex'
   export default {
-    computed: {
-      ...mapState('m_share', ['sourceSrc']),
-    },
     onLoad(options) {
-      // 获取商品 Id
-      const channelId = options.channelId
-      // 调用请求商品详情数据的方法
-      this.getChannelsDetail(channelId)
+      this.getChannelsDetail(options.channelId)
     },
     data() {
       return {
+        basePath: getApp().globalData.basePath,
         channel_info: {}, // 商品详情对象
       };
     },
@@ -43,12 +35,11 @@
       async getChannelsDetail(channelId) {
         const res = await uni.$http.get('/shop/channel/' + channelId)
         if (res.statusCode !== 200) return uni.$showMsg()
-        // 为 data 中的数据赋值
-        this.channel_info = res.data
-        if (this.channel_info.channelIntroduce !== null) {
-          this.channel_info.channelIntroduce = this.channel_info.channelIntroduce.replace(/<img /g,
+        if (res.data.channelIntroduce !== null) {
+          res.data.channelIntroduce = res.data.channelIntroduce.replace(/<img /g,
             '<img style="display:block;" ').replace(/webp/g, 'jpg')
         }
+        this.channel_info = res.data
       }
     }
   }
