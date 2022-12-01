@@ -47,7 +47,7 @@
         timer: null, // 延时器的 timerId
         kw: '', // 搜索关键词
         searchResults: [], // 搜索结果列表
-        historyList: ['天'], // 搜索关键词的历史记录
+        historyList: [], // 搜索关键词的历史记录
       };
     },
     methods: {
@@ -70,8 +70,10 @@
         })
         console.log(res)
         if (res.statusCode !== 200) return uni.$showMsg()
-        this.searchResults = res.data
-        this.saveSearchHistory()
+        if (res.data.total !== 0) {
+          this.searchResults = res.data.list
+          this.saveSearchHistory()
+        }
       },
       // 保存搜索关键词的方法
       saveSearchHistory() {
