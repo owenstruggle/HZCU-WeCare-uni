@@ -50,13 +50,13 @@
     /* 快应用特有相关 */
     "mp-weixin" : {
         /* 小程序特有相关 */
-        "appid" : "wxf3f05c003bf16077",
+        "appid" : "wx72ffda892aadf699",
         "setting" : {
             "urlCheck" : false,
             "minified" : true,
             "postcss" : true,
             "es6" : true,
-            "ignoreDevUnusedFiles":false
+            "ignoreDevUnusedFiles" : false
         },
         "usingComponents" : true
     },

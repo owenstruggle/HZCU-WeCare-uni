@@ -1,6 +1,8 @@
 // 1. 导入 Vue 和 Vuex
 import Vue from 'vue'
 import Vuex from 'vuex'
+import moduleHome from '@/store/home.js'
+import moduleUser from '@/store/user.js'
 
 // 2. 将 Vuex 安装为 Vue 的插件
 Vue.use(Vuex)
@@ -9,6 +11,8 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   // TODO：挂载 store 模块
   modules: {
+    'm_home': moduleHome,
+    'm_user': moduleUser
   },
 })
 
