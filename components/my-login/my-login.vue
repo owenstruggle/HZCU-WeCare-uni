@@ -47,24 +47,26 @@
           return uni.$showMsg('您取消了登录授权！')
         }
         console.log(res)
-        this.updateUserInfo(res.userInfo)
+        // this.updateUserInfo(res.userInfo)
         this.getToken(res)
       },
       // 调用登录接口，换取永久的 openid
       async getToken(info) {
         // 换取 openid
         console.log("this.code", this.code)
-        const loginResult = await uni.$http.post('/my/user/wxlogin', {
+        let query = {
           code: this.code, // 用户登录凭证（有效期五分钟）
           encryptedData: info.encryptedData, // 包括敏感数据在内的完整用户信息的加密数据
           iv: info.iv, // 加密算法的初始向量，详见 用户数据的签名验证和加解密
           rawData: info.rawData, // 不包括敏感信息的原始数据字符串，用于计算签名
           signature: info.signature // 使用 sha1( rawData + sessionkey ) 得到字符串，用于校验用户信息
-        })
+        }
+        const loginResult = await uni.$http.post('/my/user/wxlogin', query)
         console.log("loginResult", loginResult)
         if (loginResult.statusCode !== 200) return uni.$showMsg('登录失败！')
         this.updateToken(loginResult.data.openid)
         uni.$showMsg('登录成功')
+        this.updateUserInfo(loginResult.data)
       }
     }
   }

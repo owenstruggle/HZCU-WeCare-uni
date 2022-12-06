@@ -27,7 +27,11 @@
     }, {
       "path": "search/search",
       "style": {}
-    }]
+    }    ,{
+                    "path" : "personal_info/personal_info",
+                    "style" : {}
+                }
+            ]
   }],
   "tabBar": {
     "selectedColor": "#41A863",
