@@ -13,20 +13,24 @@
         <!-- panel 的主体区域 -->
         <view class="panel-body">
           <!-- panel 的 item 项 -->
-          <view class="panel-item">
-            <text>8</text>
+          <view class="panel-item" @click="gotoContacts">
+            <text v-if="contactInfo.length">{{contactInfo.length}}</text>
+            <text v-else>0</text>
             <text>联系人数</text>
           </view>
-          <view class="panel-item">
-            <text>14</text>
+          <view class="panel-item" @click="gotoHome">
+            <text v-if="postingInfo.length">{{postingInfo.length}}</text>
+            <text v-else>0</text>
             <text>今日动态</text>
           </view>
           <view class="panel-item">
-            <text>18</text>
+            <text v-if="myPostingInfo.length">{{myPostingInfo.length}}</text>
+            <text v-else>0</text>
             <text>我的动态</text>
           </view>
           <view class="panel-item">
-            <text>84</text>
+            <text v-if="myTraceInfo.length">{{myTraceInfo.length}}</text>
+            <text v-else>0</text>
             <text>轨迹数据</text>
           </view>
         </view>
@@ -86,15 +90,53 @@
     name: "my-userinfo",
     computed: {
       // 将 m_user 模块中的 userinfo 映射到当前页面中使用
-      ...mapState('m_user', ['userinfo']),
+      ...mapState('m_user', ['userinfo', 'contactInfo', 'postingInfo', 'myPostingInfo', 'myTraceInfo']),
+    },
+    created() {
+      this.loadContactInfo()
+      this.loadPostingInfo()
+      this.loadMyPostingInfo()
+      this.loadMyTraceInfo()
     },
     data() {
       return {
-
+        
       };
     },
     methods: {
-      ...mapMutations('m_user', ['updateUserInfo', 'updateToken']),
+      ...mapMutations('m_user', ['updateUserInfo', 'updateContactInfo', 'updateMyTraceInfo', 'updateMyPostingInfo', 'updatePostingInfo']),
+      async loadContactInfo() {
+        const res = await uni.$http.get('/contacts', {
+          userId: this.userinfo.userId
+        })
+        console.log('res', res)
+        if (res.statusCode !== 200) return
+        this.updateContactInfo(res.data)
+      },
+      async loadPostingInfo() {
+        const res = await uni.$http.get('/home/posting', {
+          userId: this.userinfo.userId
+        })
+        console.log('res', res)
+        if (res.statusCode !== 200) return
+        this.updatePostingInfo(res.data)
+      },
+      async loadMyPostingInfo() {
+        const res = await uni.$http.get('/my/posting', {
+          userId: this.userinfo.userId
+        })
+        console.log('res', res)
+        if (res.statusCode !== 200) return
+        this.updateMyPostingInfo(res.data)
+      },
+      async loadMyTraceInfo() {
+        const res = await uni.$http.get('/contacts/trace', {
+          userId: this.userinfo.userId
+        })
+        console.log('res', res)
+        if (res.statusCode !== 200) return
+        this.updateMyTraceInfo(res.data)
+      },
       // 退出登录
       async logout() {
         // 询问用户是否退出登录
@@ -107,7 +149,6 @@
           // 用户确认了退出登录的操作
           // 需要清空 vuex 中的 userinfo、token 和 address
           this.updateUserInfo({})
-          this.updateToken('')
         }
       },
       async contactUs() {
@@ -120,6 +161,16 @@
       gotoPersonalInfo() {
         uni.navigateTo({
           url: '/subpkg/personal_info/personal_info'
+        })
+      },
+      gotoContacts() {
+        uni.switchTab({
+          url: '/pages/contacts/contacts'
+        })
+      },
+      gotoHome() {
+        uni.switchTab({
+          url: '/pages/home/home'
         })
       }
     }

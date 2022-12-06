@@ -26,7 +26,7 @@
       };
     },
     methods: {
-      ...mapMutations('m_user', ['updateUserInfo', 'updateToken']),
+      ...mapMutations('m_user', ['updateUserInfo']),
       async login() {
         await uni.login({
           success: (res) => {
@@ -64,7 +64,6 @@
         const loginResult = await uni.$http.post('/my/user/wxlogin', query)
         console.log("loginResult", loginResult)
         if (loginResult.statusCode !== 200) return uni.$showMsg('登录失败！')
-        this.updateToken(loginResult.data.openid)
         uni.$showMsg('登录成功')
         this.updateUserInfo(loginResult.data)
       }
