@@ -3,7 +3,7 @@
     <view class="panel">
       <view class="panel-list-item head-portrait">
         <text>头像</text>
-        <image :src="userinfo.avatarUrl"></image>
+        <image :src="basePath + userinfo.avatarUrl"></image>
       </view>
       <view class="panel-list-item" @click="changeNickName">
         <text>用户名</text>
@@ -56,6 +56,7 @@
     },
     data() {
       return {
+        basePath: getApp().globalData.basePath,
         update_info: {}
       };
     },

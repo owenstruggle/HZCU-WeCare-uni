@@ -2,7 +2,7 @@
   <view class="my-userinfo-container">
     <!-- 头像昵称区域 -->
     <view class="top-box">
-      <image :src="userinfo.avatarUrl" class="avatar"></image>
+      <image :src="basePath + userinfo.avatarUrl" class="avatar"></image>
       <view class="nickname">{{userinfo.nickName}}</view>
     </view>
 
@@ -99,7 +99,7 @@
     },
     data() {
       return {
-
+        basePath: getApp().globalData.basePath,
       };
     },
     methods: {
