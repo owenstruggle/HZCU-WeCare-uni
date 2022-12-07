@@ -43,8 +43,10 @@
     mapState,
     mapMutations
   } from 'vuex';
+  import loadInfo from '@/mixins/loadInfo.js';
   let _self = null;
   export default {
+    mixins: [loadInfo],
     computed: {
       // 将 m_user 模块中的 userinfo 映射到当前页面中使用
       ...mapState('m_user', ['userinfo']),
@@ -75,6 +77,7 @@
           uni.$showMsg('更新失败')
         }
         this.updateUserInfo(res.data)
+        this.load()
         uni.$showMsg('更新成功')
       },
       changeNickName() {
@@ -86,8 +89,8 @@
           confirmText: '保存',
           editable: true,
           success(res) {
-            console.log(res)
-            if (res.content !== '') {
+            console.log('showModal res', res)
+            if (res.cancel === false && res.content !== '') {
               _self.update_info.nickName = res.content
               _self.update()
             }
@@ -126,7 +129,7 @@
           editable: true,
           success(res) {
             console.log(res)
-            if (res.content !== '') {
+            if (res.cancel === false && res.content !== '') {
               _self.update_info.city = res.content
               _self.update()
             } 
@@ -144,7 +147,7 @@
           editable: true,
           success(res) {
             console.log(res)
-            if (res.content !== '') {
+            if (res.cancel === false && res.content !== '') {
               _self.update_info.province = res.content
               _self.update()
             } 
@@ -162,7 +165,7 @@
           editable: true,
           success(res) {
             console.log(res)
-            if (res.content !== '') {
+            if (res.cancel === false && res.content !== '') {
               _self.update_info.country = res.content
               _self.update()
             } 

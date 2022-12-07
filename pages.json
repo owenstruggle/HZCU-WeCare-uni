@@ -31,6 +31,14 @@
                     "path" : "personal_info/personal_info",
                     "style" : {}
                 }
+                ,{
+                    "path" : "subscription_list/subscription_list",
+                    "style" : {}
+                }
+                ,{
+                    "path" : "subscription_detail/subscription_detail",
+                    "style" : {}
+                }
             ]
   }],
   "tabBar": {

@@ -43,15 +43,15 @@
         <!-- 面板的主体 -->
         <view class="panel-body">
           <!-- 面板主体中的 item 项 -->
-          <view class="panel-item">
+          <view class="panel-item" @click="gotoSubscriptionList(0)">
             <image src="/static/my-icons/IndividualSubscription.png" class="icon"></image>
             <text>个人订阅</text>
           </view>
-          <view class="panel-item">
+          <view class="panel-item" @click="gotoSubscriptionList(1)">
             <image src="/static/my-icons/SubscriptionApplication.png" class="icon"></image>
             <text>订阅申请</text>
           </view>
-          <view class="panel-item">
+          <view class="panel-item" @click="gotoSubscriptionList(2)">
             <image src="/static/my-icons/AllSubscribe.png" class="icon"></image>
             <text>全部订阅</text>
           </view>
@@ -85,58 +85,25 @@
   import {
     mapState,
     mapMutations
-  } from 'vuex'
+  } from 'vuex';
+  import loadInfo from '@/mixins/loadInfo.js';
   export default {
     name: "my-userinfo",
+    mixins: [loadInfo],
     computed: {
       // 将 m_user 模块中的 userinfo 映射到当前页面中使用
       ...mapState('m_user', ['userinfo', 'contactInfo', 'postingInfo', 'myPostingInfo', 'myTraceInfo']),
     },
     created() {
-      this.loadContactInfo()
-      this.loadPostingInfo()
-      this.loadMyPostingInfo()
-      this.loadMyTraceInfo()
+      this.load()
     },
     data() {
       return {
-        
+
       };
     },
     methods: {
-      ...mapMutations('m_user', ['updateUserInfo', 'updateContactInfo', 'updateMyTraceInfo', 'updateMyPostingInfo', 'updatePostingInfo']),
-      async loadContactInfo() {
-        const res = await uni.$http.get('/contacts', {
-          userId: this.userinfo.userId
-        })
-        console.log('res', res)
-        if (res.statusCode !== 200) return
-        this.updateContactInfo(res.data)
-      },
-      async loadPostingInfo() {
-        const res = await uni.$http.get('/home/posting', {
-          userId: this.userinfo.userId
-        })
-        console.log('res', res)
-        if (res.statusCode !== 200) return
-        this.updatePostingInfo(res.data)
-      },
-      async loadMyPostingInfo() {
-        const res = await uni.$http.get('/my/posting', {
-          userId: this.userinfo.userId
-        })
-        console.log('res', res)
-        if (res.statusCode !== 200) return
-        this.updateMyPostingInfo(res.data)
-      },
-      async loadMyTraceInfo() {
-        const res = await uni.$http.get('/contacts/trace', {
-          userId: this.userinfo.userId
-        })
-        console.log('res', res)
-        if (res.statusCode !== 200) return
-        this.updateMyTraceInfo(res.data)
-      },
+      ...mapMutations('m_user', ['updateUserInfo']),
       // 退出登录
       async logout() {
         // 询问用户是否退出登录
@@ -171,6 +138,11 @@
       gotoHome() {
         uni.switchTab({
           url: '/pages/home/home'
+        })
+      },
+      gotoSubscriptionList(type) {
+        uni.navigateTo({
+          url: '/subpkg/subscription_list/subscription_list?type=' + type
         })
       }
     }

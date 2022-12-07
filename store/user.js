@@ -14,6 +14,8 @@ export default {
     myPostingInfo: JSON.parse(uni.getStorageSync('myPostingInfo') || '{}'),
     // 我的轨迹数据
     myTraceInfo: JSON.parse(uni.getStorageSync('myTraceInfo') || '{}'),
+    // 订阅信息
+    subscriptionInfo: JSON.parse(uni.getStorageSync('subscriptionInfo') || '{}'),
   }),
 
   // 方法
@@ -57,6 +59,14 @@ export default {
     },
     saveMyTraceInfoToStorage(state) {
       uni.setStorageSync('myTraceInfo', JSON.stringify(state.myTraceInfo))
+    },
+    // subscriptionInfo 的更新方法
+    updateSubscriptionInfo(state, subscriptionInfo) {
+      state.subscriptionInfo = subscriptionInfo
+      this.commit('m_user/saveSubscriptionInfoToStorage')
+    },
+    saveSubscriptionInfoToStorage(state) {
+      uni.setStorageSync('subscriptionInfo', JSON.stringify(state.subscriptionInfo))
     },
   },
 
