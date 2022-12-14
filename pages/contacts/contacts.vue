@@ -11,7 +11,7 @@
       </scroll-view>
       <!-- 右侧的滚动视图区域 -->
       <scroll-view class="right-scroll-view" scroll-y :style="{height: wh + 'px'}">
-        <my-contactinfo :contactInfo="contactInfo[active]"></my-contactinfo>
+        <my-contactinfo :contactInfo="contactInfo[active]" :postingInfo="postingInfo" :traceInfo="traceInfo"></my-contactinfo>
       </scroll-view>
     </view>
   </view>
@@ -33,19 +33,30 @@
       const sysInfo = uni.getSystemInfoSync()
       // 为 wh 窗口可用高度动态赋值
       this.wh = sysInfo.windowHeight
+      this.loadContactInfo()
     },
     data() {
       return {
         // 窗口的可用高度 = 屏幕高度 - navigationBar高度 - tabBar 高度
         wh: 0,
         // 当前选中项的索引，默认让第一项被选中
-        active: 0
+        active: 0,
+        postingInfo: null,
+        traceInfo: null
       };
     },
     methods: {
       // 选中项改变的事件处理函数
-      activeChanged(i) {
+      async activeChanged(i) {
         this.active = i
+        await this.loadContactInfo()
+      },
+      async loadContactInfo() {
+        var userId = this.contactInfo[this.active].userId
+        this.postingInfo = await this.loadPostingInfo(userId, 1, 4)
+        // console.log("this.postingInfo", this.postingInfo)
+        this.traceInfo = await this.loadTraceInfo(userId)
+        // console.log("this.traceInfo", this.traceInfo)
       }
     }
   }

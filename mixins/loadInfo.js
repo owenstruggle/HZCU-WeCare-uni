@@ -4,55 +4,59 @@ import {
 
 export default {
   methods: {
-    ...mapMutations('m_user', ['updateUserInfo', 'updateContactInfo', 'updateMyTraceInfo', 'updateMyPostingInfo',
+    ...mapMutations('m_user', ['updateUserInfo', 'updateContactInfo', 'updateMyTraceInfo', 'updateTodaypostingInfo',
       'updatePostingInfo', 'updateSubscriptionInfo'
     ]),
     async load() {
-      await this.loadContactInfo()
-      await this.loadPostingInfo()
-      await this.loadMyPostingInfo()
-      await this.loadMyTraceInfo()
-      await this.loadSubscription()
+      var userId = this.userinfo.userId
+
+      this.updateSubscriptionInfo(await this.loadSubscription(userId))
+      this.updateContactInfo(await this.loadContactInfo(userId))
+      this.updatePostingInfo(await this.loadPostingInfo(userId, 1, 1))
+      this.updateTodaypostingInfo(await this.loadTodayPostingInfo(userId))
+      this.updateMyTraceInfo(await this.loadTraceInfo(userId))
     },
-    async loadSubscription() {
+    async loadSubscription(userId) {
       const res = await uni.$http.get('/my/subscription', {
-        userId: this.userinfo.userId
+        userId: userId
       })
       // console.log('res', res)
       if (res.statusCode !== 200) return
-      this.updateSubscriptionInfo(res.data)
+      return res.data
     },
-    async loadContactInfo() {
+    async loadContactInfo(userId) {
       const res = await uni.$http.get('/contacts', {
-        userId: this.userinfo.userId
+        userId: userId
       })
       // console.log('res', res)
       if (res.statusCode !== 200) return
-      this.updateContactInfo(res.data)
+      return res.data
     },
-    async loadPostingInfo() {
-      const res = await uni.$http.get('/home/posting', {
-        userId: this.userinfo.userId
-      })
-      // console.log('res', res)
-      if (res.statusCode !== 200) return
-      this.updatePostingInfo(res.data)
-    },
-    async loadMyPostingInfo() {
+    async loadPostingInfo(userId, pageNum, pageSize) {
       const res = await uni.$http.get('/my/posting', {
-        userId: this.userinfo.userId
+        userId: userId,
+        pageNum: pageNum,
+        pageSize: pageSize
       })
       // console.log('res', res)
       if (res.statusCode !== 200) return
-      this.updateMyPostingInfo(res.data)
+      return res.data
     },
-    async loadMyTraceInfo() {
-      const res = await uni.$http.get('/contacts/trace', {
-        userId: this.userinfo.userId
+    async loadTodayPostingInfo(userId) {
+      const res = await uni.$http.get('/home/posting', {
+        userId: userId
       })
       // console.log('res', res)
       if (res.statusCode !== 200) return
-      this.updateMyTraceInfo(res.data)
+      return res.data
+    },
+    async loadTraceInfo(userId) {
+      const res = await uni.$http.get('/contacts/trace', {
+        userId: userId
+      })
+      // console.log('res', res)
+      if (res.statusCode !== 200) return
+      return res.data
     },
   }
 }

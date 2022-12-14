@@ -5,7 +5,7 @@
       <!-- 第一个：信息面板 -->
       <view class="panel">
         <!-- panel 的主体区域 -->
-        <view class="panel-body info-panel">
+        <view class="panel-body panel-info">
           <image :src="basePath + contactInfo.avatarUrl"></image>
           <view class="base-info">
             <view class="name">{{contactInfo.nickName}}</view>
@@ -30,10 +30,13 @@
         <!-- 面板的标题 -->
         <view class="panel-title">
           <view>动态信息</view>
-          <view>{{contactPastingNum}}</view>
+          <view>{{postingInfo.total}}</view>
         </view>
         <!-- 面板的主体 -->
-        <view class="panel-body">
+        <view class="panel-body panel-posting">
+          <view v-for="(item, i) in postingInfo.list" :key="i">
+            <image :src="basePath + item.postingImageSrc"></image>
+          </view>
         </view>
       </view>
 
@@ -52,6 +55,12 @@
       contactInfo: {
         type: Object
       },
+      postingInfo: {
+        type: Object
+      },
+      traceInfo: {
+        type: Object
+      }
     },
     onLoad() {
       loadPastingInfo()
@@ -98,27 +107,39 @@
         border-bottom: 1px solid #f4f4f4;
       }
 
-      .info-panel {
+      .panel-body {
         display: flex;
         height: 250rpx;
         align-items: center;
-
+      }
+      
+      .panel-info {
         image {
           width: 150rpx;
           height: 150rpx;
           padding: 0 30rpx 0 30rpx;
         }
-
+        
         .base-info {
           color: #a3a3a3;
           font-size: 20rpx;
         }
-
+        
         .name {
           color: #000;
           font-size: 40rpx;
           font-weight: bold;
           padding-bottom: 10rpx;
+        }
+      }
+      
+      .panel-posting {
+        height: 150rpx;
+        
+        image {
+          width: 100rpx;
+          height: 100rpx;
+          padding: 10rpx;
         }
       }
     }

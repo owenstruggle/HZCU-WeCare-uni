@@ -39,6 +39,19 @@
                     "path" : "subscription_detail/subscription_detail",
                     "style" : {}
                 }
+                ,{
+                    "path" : "posting_list/posting_list",
+                    "style" : {}
+                }
+                ,{
+                    "path" : "posting_detail/posting_detail",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
             ]
   }],
   "tabBar": {
