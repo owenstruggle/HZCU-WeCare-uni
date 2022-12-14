@@ -16,20 +16,6 @@
     },
     onLoad(options) {
       this.type = options.type
-      if (options.type === '0') {
-        // 个人订阅
-        this.subscriptionInfo.forEach(e => {
-          if (e.userId === this.userinfo.userId && e.acceptUserId === this.userinfo.userId) this.subscription.push(e)
-        })
-      } else if (options.type === '1') {
-        // 订阅申请
-        this.subscriptionInfo.forEach(e => {
-          if (e.userId !== this.userinfo.userId && e.acceptUserId === this.userinfo.userId) this.subscription.push(e)
-        })
-      } else {
-        // 全部订阅
-        this.subscription = Object.assign([], this.subscriptionInfo)
-      }
     },
     onShow() {
       if (this.type === '0') {
