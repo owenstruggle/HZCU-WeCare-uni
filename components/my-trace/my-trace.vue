@@ -1,10 +1,14 @@
 <template>
   <view class="container-pannel">
     <view class="panel" @click="openLocation">
-      <view class="date">{{traceInfo.traceTime.split(' ')[0]}}</view>
-      <view class="time">{{traceInfo.traceTime.split(' ')[1]}}</view>
-      <view class="longitude">{{traceInfo.longitude}}</view>
-      <view class="latitude">{{traceInfo.latitude}}</view>
+      <view class="date">日期：{{traceInfo.traceTime.split(' ')[0]}}</view>
+      <view class="content">
+        <view class="time">时间：{{traceInfo.traceTime.split(' ')[1]}}</view>
+        <view class="location">
+          <view class="longitude">经度：{{traceInfo.longitude}}</view>
+          <view class="latitude">维度：{{traceInfo.latitude}}</view>
+        </view>
+      </view>
     </view>
   </view>
 </template>
@@ -33,15 +37,41 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss"> 
   .container-pannel {
     height: 100%;
 
     .panel {
       border-radius: 3px;
-      background-color: #f4f4f4;
+      background-color: white;
       margin-bottom: 8px;
-      padding: 30rpx;
+      margin: 20rpx;
+      padding: 20rpx;
+
+      .date {
+        font-size: 40rpx;
+        font-weight: bold;
+      }
+      
+      .content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        flex-direction: row;
+      
+        .time {
+          margin-left: 10rpx;
+          margin-top: 10rpx;
+          font-size: 30rpx;
+        }
+      }
+      
+      .location {
+        flex-direction: column;
+        padding-left: 20rpx;
+        font-size: 25rpx;
+      }
     }
   }
 </style>

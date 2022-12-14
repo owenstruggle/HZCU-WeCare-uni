@@ -27,32 +27,27 @@
     }, {
       "path": "search/search",
       "style": {}
-    }    ,{
-                    "path" : "personal_info/personal_info",
-                    "style" : {}
-                }
-                ,{
-                    "path" : "subscription_list/subscription_list",
-                    "style" : {}
-                }
-                ,{
-                    "path" : "subscription_detail/subscription_detail",
-                    "style" : {}
-                }
-                ,{
-                    "path" : "posting_list/posting_list",
-                    "style" : {}
-                }
-                ,{
-                    "path" : "posting_detail/posting_detail",
-                    "style" :                                                                                    
-                {
-                    "navigationBarTitleText": "",
-                    "enablePullDownRefresh": false
-                }
-                
-                }
-            ]
+    }, {
+      "path": "personal_info/personal_info",
+      "style": {}
+    }, {
+      "path": "subscription_list/subscription_list",
+      "style": {}
+    }, {
+      "path": "subscription_detail/subscription_detail",
+      "style": {}
+    }, {
+      "path": "posting_list/posting_list",
+      "style": {}
+    }, {
+      "path": "posting_detail/posting_detail",
+      "style": {
+        "enablePullDownRefresh": false
+      }
+    }, {
+      "path": "trace_list/trace_list",
+      "style": {}
+    }]
   }],
   "tabBar": {
     "selectedColor": "#41A863",

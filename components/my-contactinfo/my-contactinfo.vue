@@ -33,16 +33,20 @@
           <view>{{postingInfo.total}}</view>
         </view>
         <!-- 面板的主体 -->
-        <view class="panel-body panel-posting">
+        <view v-if="postingInfo.total != 0" class="panel-body panel-posting" @click="gotoPostingList">
           <view v-for="(item, i) in postingInfo.list" :key="i">
             <image :src="basePath + item.postingImageSrc"></image>
           </view>
         </view>
       </view>
 
-      <!-- 第三个：其他面板 -->
+      <!-- 第三个：轨迹面板 -->
       <view class="panel">
-
+        <!-- 面板的标题 -->
+        <view class="panel-title" @click="gotoTraceList">
+          <view>轨迹信息</view>
+          <view>{{traceInfo.length}}</view>
+        </view>
       </view>
     </view>
   </view>
@@ -62,9 +66,7 @@
         type: Object
       }
     },
-    onLoad() {
-      loadPastingInfo()
-    },
+    onLoad() {},
     data() {
       return {
         basePath: getApp().globalData.basePath,
@@ -73,9 +75,18 @@
       };
     },
     methods: {
-      async loadPastingInfo() {
-        
-      }
+      gotoPostingList() {
+        if (this.postingInfo.total === 0) return
+        uni.navigateTo({
+          url: "/subpkg/posting_list/posting_list?postingInfo=" + encodeURIComponent(JSON.stringify(this.postingInfo.list))
+        })
+      },
+      gotoTraceList() {
+        if (this.traceInfo.length === 0) return
+        uni.navigateTo({
+          url: "/subpkg/trace_list/trace_list?traceInfo=" + encodeURIComponent(JSON.stringify(this.traceInfo))
+        })
+      },
     }
   }
 </script>
@@ -112,19 +123,19 @@
         height: 250rpx;
         align-items: center;
       }
-      
+
       .panel-info {
         image {
           width: 150rpx;
           height: 150rpx;
           padding: 0 30rpx 0 30rpx;
         }
-        
+
         .base-info {
           color: #a3a3a3;
           font-size: 20rpx;
         }
-        
+
         .name {
           color: #000;
           font-size: 40rpx;
@@ -132,10 +143,10 @@
           padding-bottom: 10rpx;
         }
       }
-      
+
       .panel-posting {
         height: 150rpx;
-        
+
         image {
           width: 100rpx;
           height: 100rpx;

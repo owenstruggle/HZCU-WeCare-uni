@@ -24,7 +24,7 @@
             <text>今日动态</text>
           </view>
           <view class="panel-item">
-            <text v-if="myPostingInfo.length">{{myPostingInfo.length}}</text>
+            <text v-if="myPostingInfo.total">{{myPostingInfo.total}}</text>
             <text v-else>0</text>
             <text>我的动态</text>
           </view>

@@ -52,7 +52,7 @@
         await this.loadContactInfo()
       },
       async loadContactInfo() {
-        var userId = this.contactInfo[this.active].userId
+        let userId = this.contactInfo[this.active].userId
         this.postingInfo = await this.loadPostingInfo(userId, 1, 4)
         // console.log("this.postingInfo", this.postingInfo)
         this.traceInfo = await this.loadTraceInfo(userId)
