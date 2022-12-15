@@ -103,7 +103,6 @@
       };
     },
     methods: {
-      ...mapMutations('m_user', ['updateUserInfo']),
       // 退出登录
       async logout() {
         // 询问用户是否退出登录
@@ -114,8 +113,7 @@
 
         if (succ && succ.confirm) {
           // 用户确认了退出登录的操作
-          // 需要清空 vuex 中的 userinfo、token 和 address
-          this.updateUserInfo({})
+          this.clearInfo()
         }
       },
       async contactUs() {

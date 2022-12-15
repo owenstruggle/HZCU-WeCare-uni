@@ -1,6 +1,6 @@
 <template>
   <view>
-    <view v-for="(item, i) in postingList" :key="i">
+    <view v-for="(item, i) in postingList" :key="i" class="posting-item">
       <my-posting :postingInfo="item"></my-posting>
     </view>
   </view>
@@ -66,11 +66,14 @@
   }
 </script>
 
-<style>
+<style lang="scss">
   page {
     background-color: #f4f4f4;
   }
-</style>
 
-<style lang="scss">
+  .posting-item {
+    display: flex;
+    justify-content: center;
+    margin: 30rpx;
+  }
 </style>

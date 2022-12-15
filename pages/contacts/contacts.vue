@@ -28,7 +28,8 @@
     computed: {
       ...mapState('m_user', ['userinfo', 'contactInfo']),
     },
-    onLoad() {
+    onLoad(options) {
+      this.getActive(options.userId)
       // 获取当前系统的信息
       const sysInfo = uni.getSystemInfoSync()
       // 为 wh 窗口可用高度动态赋值
@@ -57,6 +58,14 @@
         // console.log("this.postingInfo", this.postingInfo)
         this.traceInfo = await this.loadTraceInfo(userId)
         // console.log("this.traceInfo", this.traceInfo)
+      },
+      getActive(userId) {
+        this.contactInfo.forEach((item, index) => {
+          if (item.userId === userId) {
+            this.active = index
+            return
+          }
+        })
       }
     }
   }

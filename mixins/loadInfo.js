@@ -7,6 +7,14 @@ export default {
     ...mapMutations('m_user', ['updateUserInfo', 'updateContactInfo', 'updateMyTraceInfo', 'updateTodaypostingInfo',
       'updateMyPostingInfo', 'updateSubscriptionInfo'
     ]),
+    clearInfo() {
+      this.updateUserInfo({})
+      this.updateSubscriptionInfo({})
+      this.updateContactInfo({})
+      this.updateMyPostingInfo({})
+      this.updateTodaypostingInfo({})
+      this.updateMyTraceInfo({})
+    },
     async load() {
       var userId = this.userinfo.userId
 

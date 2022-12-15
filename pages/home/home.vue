@@ -1,7 +1,13 @@
 <template>
-  <view v-if="todayPostingInfo.total != 0">
-    <view v-for="(item, i) in todayPostingList" :key="i">
-      <my-posting :postingInfo="item"></my-posting>
+  <view v-if="todayPostingList.length != 0" class="panel">
+    <view v-for="(item, i) in todayPostingList" :key="i" class="panel-item">
+      <view class="contact-info" @click="gotoContact(item)">
+        <image :src="basePath + item.user.avatarUrl"></image>
+        <view class="nickname">{{item.user.nickName}}</view>
+      </view>
+      <view class="posting-info" @click="gotoPostingDetail(item)">
+        <my-posting :postingInfo="item"></my-posting>
+      </view>
     </view>
   </view>
   <view v-else class="no-data-image">
@@ -26,6 +32,7 @@
     },
     data() {
       return {
+        basePath: getApp().globalData.basePath,
         todayPostingList: [],
         pagenum: 1,
         pagesize: 10,
@@ -67,12 +74,33 @@
         this.todayPostingList = [...this.todayPostingList, ...res.list]
         console.log("todayPostingList", this.todayPostingList)
         this.total = res.total
+      },
+      gotoContact(e) {
+        if (e.user.userId === this.userinfo.userId) {
+          uni.switchTab({
+            url: "/pages/my/my"
+          })
+        } else {
+          // switchTab 无法携带参数，因此使用 reLaunch
+          uni.reLaunch({
+            url: "/pages/contacts/contacts?userId=" + e.user.userId
+          })
+        }
+      },
+      gotoPostingDetail(e) {
+        uni.navigateTo({
+          url: "/subpkg/posting_detail/posting_detail?postingInfo=" + encodeURIComponent(JSON.stringify(e))
+        })
       }
     }
   }
 </script>
 
 <style lang="scss">
+  page {
+    background-color: #f4f4f4;
+  }
+
   .no-data-image {
     width: 750rpx;
     height: 1300rpx;
@@ -81,6 +109,27 @@
 
     image {
       align-self: center;
+    }
+  }
+
+  .panel {
+    margin: 10rpx 10rpx 0 10rpx;
+
+    .panel-item {
+      display: flex;
+      border-radius: 3px;
+
+      .contact-info {
+        margin: 60rpx 10rpx 150rpx 0rpx;
+        padding: 10rpx;
+        background-color: white;
+        font-size: 20rpx;
+
+        image {
+          height: 80rpx;
+          width: 80rpx;
+        }
+      }
     }
   }
 </style>
