@@ -17,12 +17,21 @@ export default {
     },
     async load() {
       var userId = this.userinfo.userId
-
+      
+      this.updateUserInfo(await this.loadUserInfo(userId))
       this.updateSubscriptionInfo(await this.loadSubscription(userId))
       this.updateContactInfo(await this.loadContactInfo(userId))
       this.updateMyPostingInfo(await this.loadPostingInfo(userId, 1, 1))
       this.updateTodaypostingInfo(await this.loadTodayPostingInfo(userId, 1, 1))
       this.updateMyTraceInfo(await this.loadTraceInfo(userId))
+    },
+    async loadUserInfo(userId) {
+      const res = await uni.$http.get('/my/user', {
+        userId: userId
+      })
+      // console.log('res', res)
+      if (res.statusCode !== 200) return
+      return res.data
     },
     async loadSubscription(userId) {
       const res = await uni.$http.get('/my/subscription', {

@@ -10,7 +10,8 @@
 			console.log('App Hide')
 		},
     globalData: {
-      basePath: 'https://localhost:8082/share'
+      basePath: 'https://localhost:8082/share',
+      updateBasePath: 'https://localhost:8082/'
     }
 	}
 </script>

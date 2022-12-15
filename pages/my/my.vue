@@ -9,14 +9,17 @@
 </template>
 
 <script>
-  import badgeMix from '@/mixins/tabbar-badge.js'
+  import loadInfo from '@/mixins/loadInfo.js'
   import {
     mapState
   } from 'vuex'
   export default {
-    mixins: [badgeMix],
+    mixins: [loadInfo],
     computed: {
       ...mapState('m_user', ['userinfo']),
+    },
+    onShow() {
+      this.load()
     },
     data() {
       return {

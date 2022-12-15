@@ -2,8 +2,10 @@
   <view class="personal-info-container">
     <view class="panel">
       <view class="panel-list-item head-portrait">
-        <text>头像</text>
-        <image :src="basePath + userinfo.avatarUrl"></image>
+        <view class="head-portrait-text">头像</view>
+        <!-- <image :src="basePath + userinfo.avatarUrl"></image> -->
+        <uni-file-picker limit="1" file-mediatype="image" :imageStyles="imageStyles" @select="handleSelect">选择新头像
+        </uni-file-picker>
       </view>
       <view class="panel-list-item" @click="changeNickName">
         <text>用户名</text>
@@ -57,7 +59,15 @@
     data() {
       return {
         basePath: getApp().globalData.basePath,
-        update_info: {}
+        update_info: {},
+        imageStyles: {
+          width: 100,
+          height: 100,
+          updateBasePath: getApp().globalData.updateBasePath,
+          border: {
+            radius: '50%'
+          }
+        }
       };
     },
     methods: {
@@ -82,7 +92,7 @@
         uni.$showMsg('更新成功')
       },
       changeNickName() {
-        this.update_info = Object.assign({}, this.userinfo)  // 拷贝值
+        this.update_info = Object.assign({}, this.userinfo) // 拷贝值
         uni.showModal({
           title: '修改用户名',
           confirmColor: '#3A3A3A',
@@ -100,7 +110,7 @@
         })
       },
       changeGender() {
-        this.update_info = Object.assign({}, this.userinfo)  // 拷贝值
+        this.update_info = Object.assign({}, this.userinfo) // 拷贝值
         uni.showModal({
           title: '修改性别',
           confirmColor: '#3A3A3A',
@@ -121,7 +131,7 @@
         })
       },
       changeCity() {
-        this.update_info = Object.assign({}, this.userinfo)  // 拷贝值
+        this.update_info = Object.assign({}, this.userinfo) // 拷贝值
         uni.showModal({
           title: '修改城市',
           confirmColor: '#3A3A3A',
@@ -133,13 +143,13 @@
             if (res.cancel === false && res.content !== '') {
               _self.update_info.city = res.content
               _self.update()
-            } 
+            }
             uni.$showMsg('更新失败')
           }
         })
       },
       changeProvince() {
-        this.update_info = Object.assign({}, this.userinfo)  // 拷贝值
+        this.update_info = Object.assign({}, this.userinfo) // 拷贝值
         uni.showModal({
           title: '修改城市',
           confirmColor: '#3A3A3A',
@@ -151,13 +161,13 @@
             if (res.cancel === false && res.content !== '') {
               _self.update_info.province = res.content
               _self.update()
-            } 
+            }
             uni.$showMsg('更新失败')
           }
         })
       },
       changeCountry() {
-        this.update_info = Object.assign({}, this.userinfo)  // 拷贝值
+        this.update_info = Object.assign({}, this.userinfo) // 拷贝值
         uni.showModal({
           title: '修改城市',
           confirmColor: '#3A3A3A',
@@ -169,10 +179,32 @@
             if (res.cancel === false && res.content !== '') {
               _self.update_info.country = res.content
               _self.update()
-            } 
+            }
             uni.$showMsg('更新失败')
           }
         })
+      },
+      async handleSelect(e) {
+        if (!e.tempFilePaths.length) return;
+        const path = e.tempFilePaths.pop();
+        const res = await uni.uploadFile({
+          url: 'https://localhost:8082/my/uploadHeadPortrait',
+          filePath: path,
+          name: "fileUpload",
+          formData: {
+            "userId": _self.userinfo.userId
+          },
+          header: {
+            "Content-Type": "multipart/form-data",
+          }
+        });
+        console.log("res", res)
+        if (res[1].statusCode !== 200) {
+          uni.$showMsg('更新失败')
+        } else {
+          uni.$showMsg('更新成功')
+          uni.navigateBack()
+        }
       }
     }
   }
@@ -203,12 +235,18 @@
     }
 
     .head-portrait {
-      height: 65px;
+      display: flex;
+      justify-content: space-between;
+      height: 200rpx;
 
-      image {
-        width: 100rpx;
-        height: 100rpx;
+      .head-portrait-text {
+        margin-right: 480rpx;
       }
+
+      // image {
+      //   width: 100rpx;
+      //   height: 100rpx;
+      // }
     }
   }
 </style>

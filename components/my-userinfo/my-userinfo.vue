@@ -95,7 +95,7 @@
       ...mapState('m_user', ['userinfo', 'contactInfo', 'todayPostingInfo', 'myPostingInfo', 'myTraceInfo']),
     },
     created() {
-      this.load()
+      // this.load()
     },
     data() {
       return {
