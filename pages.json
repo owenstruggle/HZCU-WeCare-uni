@@ -1,7 +1,10 @@
 {
   "pages": [{
     "path": "pages/home/home",
-    "style": {}
+    "style": {
+      "onReachBottomDistance": 150,
+      "enablePullDownRefresh": true
+    }
   }, {
     "path": "pages/contacts/contacts",
     "style": {}

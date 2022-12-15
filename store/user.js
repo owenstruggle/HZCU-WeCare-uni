@@ -9,7 +9,7 @@ export default {
     // 联系人对象
     contactInfo: JSON.parse(uni.getStorageSync('contactInfo') || '{}'),
     // 今日动态
-    todaypostingInfo: JSON.parse(uni.getStorageSync('todaypostingInfo') || '{}'),
+    todayPostingInfo: JSON.parse(uni.getStorageSync('todayPostingInfo') || '{}'),
     // 我的动态
     myPostingInfo: JSON.parse(uni.getStorageSync('myPostingInfo') || '{}'),
     // 我的轨迹数据
@@ -36,13 +36,13 @@ export default {
     saveContactInfoToStorage(state) {
       uni.setStorageSync('contactInfo', JSON.stringify(state.contactInfo))
     },
-    // todaypostingInfo 的更新方法
-    updateTodaypostingInfo(state, todaypostingInfo) {
-      state.todaypostingInfo = todaypostingInfo
-      this.commit('m_user/saveTodaypostingInfoToStorage')
+    // todayPostingInfo 的更新方法
+    updateTodaypostingInfo(state, todayPostingInfo) {
+      state.todayPostingInfo = todayPostingInfo
+      this.commit('m_user/saveTodayPostingInfoToStorage')
     },
-    saveTodaypostingInfoToStorage(state) {
-      uni.setStorageSync('todaypostingInfo', JSON.stringify(state.todaypostingInfo))
+    saveTodayPostingInfoToStorage(state) {
+      uni.setStorageSync('todayPostingInfo', JSON.stringify(state.todayPostingInfo))
     },
     // myPostingInfo 的更新方法
     updateMyPostingInfo(state, myPostingInfo) {
