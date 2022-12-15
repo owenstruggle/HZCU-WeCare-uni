@@ -19,7 +19,7 @@
             <text>联系人数</text>
           </view>
           <view class="panel-item" @click="gotoHome">
-            <text v-if="todaypostingInfo.length">{{todaypostingInfo.length}}</text>
+            <text v-if="todaypostingInfo.total">{{todaypostingInfo.total}}</text>
             <text v-else>0</text>
             <text>今日动态</text>
           </view>

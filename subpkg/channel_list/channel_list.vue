@@ -1,13 +1,11 @@
 <template>
-  <view>
-    <view class="channels-list">
-      <view v-for="(item, i) in channelsList" :key="i" @click="gotoDetail(item)">
-        <my-channels :channels="item"></my-channels>
-      </view>
+  <view v-if="total != 0" class="channels-list">
+    <view v-for="(item, i) in channelsList" :key="i" @click="gotoDetail(item)">
+      <my-channels :channels="item"></my-channels>
     </view>
-    <view v-show="total === 0" class="no-data-image">
-      <image src="../../static/no_data.png"></image>
-    </view>
+  </view>
+  <view v-else class="no-data-image">
+    <image src="../../static/no_data.png"></image>
   </view>
 </template>
 
@@ -82,13 +80,14 @@
 </script>
 
 <style lang="scss">
-.no-data-image {
-  width: 750rpx;
-  height: 1300rpx;
-  display: flex;
-  justify-content: center;
-  image {
-    align-self: center;
+  .no-data-image {
+    width: 750rpx;
+    height: 1300rpx;
+    display: flex;
+    justify-content: center;
+
+    image {
+      align-self: center;
+    }
   }
-}
 </style>

@@ -13,7 +13,7 @@ export default {
       this.updateSubscriptionInfo(await this.loadSubscription(userId))
       this.updateContactInfo(await this.loadContactInfo(userId))
       this.updateMyPostingInfo(await this.loadPostingInfo(userId, 1, 1))
-      this.updateTodaypostingInfo(await this.loadTodayPostingInfo(userId))
+      this.updateTodaypostingInfo(await this.loadTodayPostingInfo(userId, 1, 1))
       this.updateMyTraceInfo(await this.loadTraceInfo(userId))
     },
     async loadSubscription(userId) {
@@ -42,9 +42,11 @@ export default {
       if (res.statusCode !== 200) return
       return res.data
     },
-    async loadTodayPostingInfo(userId) {
-      const res = await uni.$http.get('/home/posting', {
-        userId: userId
+    async loadTodayPostingInfo(userId, pageNum, pageSize) {
+      const res = await uni.$http.get('/home/todayposting', {
+        userId: userId,
+        pageNum: pageNum,
+        pageSize: pageSize
       })
       // console.log('res', res)
       if (res.statusCode !== 200) return
