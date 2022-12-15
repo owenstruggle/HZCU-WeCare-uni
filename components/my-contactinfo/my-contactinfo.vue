@@ -78,7 +78,7 @@
       gotoPostingList() {
         if (this.postingInfo.total === 0) return
         uni.navigateTo({
-          url: "/subpkg/posting_list/posting_list?postingInfo=" + encodeURIComponent(JSON.stringify(this.postingInfo.list))
+          url: "/subpkg/posting_list/posting_list?userId=" + this.contactInfo.userId
         })
       },
       gotoTraceList() {
@@ -146,6 +146,7 @@
 
       .panel-posting {
         height: 150rpx;
+        padding-left: 20rpx;
 
         image {
           width: 100rpx;

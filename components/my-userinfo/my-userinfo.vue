@@ -23,12 +23,12 @@
             <text v-else>0</text>
             <text>今日动态</text>
           </view>
-          <view class="panel-item">
+          <view class="panel-item" @click="gotoPosting">
             <text v-if="myPostingInfo.total">{{myPostingInfo.total}}</text>
             <text v-else>0</text>
             <text>我的动态</text>
           </view>
-          <view class="panel-item">
+          <view class="panel-item" @click="gotoTrace">
             <text v-if="myTraceInfo.length">{{myTraceInfo.length}}</text>
             <text v-else>0</text>
             <text>轨迹数据</text>
@@ -92,7 +92,7 @@
     mixins: [loadInfo],
     computed: {
       // 将 m_user 模块中的 userinfo 映射到当前页面中使用
-      ...mapState('m_user', ['userinfo', 'contactInfo', 'postingInfo', 'myPostingInfo', 'myTraceInfo']),
+      ...mapState('m_user', ['userinfo', 'contactInfo', 'todaypostingInfo', 'myPostingInfo', 'myTraceInfo']),
     },
     created() {
       this.load()
@@ -143,6 +143,16 @@
       gotoSubscriptionList(type) {
         uni.navigateTo({
           url: '/subpkg/subscription_list/subscription_list?type=' + type
+        })
+      },
+      gotoPosting() {
+        uni.navigateTo({
+          url: '/subpkg/posting_list/posting_list?userId=' + this.userinfo.userId
+        })
+      },
+      gotoTrace() {
+        uni.navigateTo({
+          url: '/subpkg/trace_list/trace_list?traceInfo=' + encodeURIComponent(JSON.stringify(this.myTraceInfo))
         })
       }
     }
