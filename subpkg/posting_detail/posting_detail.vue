@@ -18,7 +18,7 @@
     </view>
 
     <!-- 评论部分 -->
-    <view class="comment">
+    <view v-if="commentList.length != 0" class="comment">
       <view class="comment-icon">
         <image src="/static/comment.png"></image>
       </view>
