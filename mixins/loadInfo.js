@@ -5,14 +5,14 @@ import {
 export default {
   methods: {
     ...mapMutations('m_user', ['updateUserInfo', 'updateContactInfo', 'updateMyTraceInfo', 'updateTodaypostingInfo',
-      'updatePostingInfo', 'updateSubscriptionInfo'
+      'updateMyPostingInfo', 'updateSubscriptionInfo'
     ]),
     async load() {
       var userId = this.userinfo.userId
 
       this.updateSubscriptionInfo(await this.loadSubscription(userId))
       this.updateContactInfo(await this.loadContactInfo(userId))
-      this.updatePostingInfo(await this.loadPostingInfo(userId, 1, 1))
+      this.updateMyPostingInfo(await this.loadPostingInfo(userId, 1, 1))
       this.updateTodaypostingInfo(await this.loadTodayPostingInfo(userId))
       this.updateMyTraceInfo(await this.loadTraceInfo(userId))
     },
