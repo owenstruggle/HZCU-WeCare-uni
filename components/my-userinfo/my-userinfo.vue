@@ -55,9 +55,9 @@
             <image src="/static/my-icons/AllSubscribe.png" class="icon"></image>
             <text>全部订阅</text>
           </view>
-          <view class="panel-item">
+          <view class="panel-item" @click="gotoFriendApplication">
             <image src="/static/my-icons/PushedInformation.png" class="icon"></image>
-            <text>推送信息</text>
+            <text>好友申请</text>
           </view>
         </view>
       </view>
@@ -151,6 +151,11 @@
       gotoTrace() {
         uni.navigateTo({
           url: '/subpkg/trace_list/trace_list?traceInfo=' + encodeURIComponent(JSON.stringify(this.myTraceInfo))
+        })
+      },
+      gotoFriendApplication() {
+        uni.navigateTo({
+          url: '/subpkg/friend_application/friend_application'
         })
       }
     }
