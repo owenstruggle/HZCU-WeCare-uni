@@ -1,17 +1,20 @@
 <template>
-  <view v-if="todayPostingList.length != 0" class="panel">
-    <view v-for="(item, i) in todayPostingList" :key="i" class="panel-item">
-      <view class="contact-info" @click="gotoContact(item)">
-        <image :src="basePath + item.user.avatarUrl"></image>
-        <view class="nickname">{{item.user.nickName}}</view>
-      </view>
-      <view class="posting-info" @click="gotoPostingDetail(item)">
-        <my-posting :postingInfo="item"></my-posting>
+  <view>
+    <view v-if="todayPostingList.length != 0" class="panel">
+      <view v-for="(item, i) in todayPostingList" :key="i" class="panel-item">
+        <view class="contact-info" @click="gotoContact(item)">
+          <image :src="basePath + item.user.avatarUrl"></image>
+          <view class="nickname">{{item.user.nickName}}</view>
+        </view>
+        <view class="posting-info" @click="gotoPostingDetail(item)">
+          <my-posting :postingInfo="item"></my-posting>
+        </view>
       </view>
     </view>
-  </view>
-  <view v-else class="no-data-image">
-    <image src="../../static/no_data.png"></image>
+    <view v-else class="no-data-image">
+      <image src="../../static/no_data.png"></image>
+    </view>
+    <sa-hover-menu></sa-hover-menu>
   </view>
 </template>
 
@@ -21,11 +24,14 @@
     mapMutations
   } from 'vuex';
   import loadInfo from '@/mixins/loadInfo.js';
+  import saHoverMenu from '@/components/sa-hover-menu/sa-hover-menu.vue';
   export default {
     mixins: [loadInfo],
     computed: {
-      // 将 m_user 模块中的 userinfo 映射到当前页面中使用
       ...mapState('m_user', ['userinfo', 'todayPostingInfo']),
+    },
+    components: {
+      saHoverMenu
     },
     onLoad() {
       this.getTodayPostingInfo()
