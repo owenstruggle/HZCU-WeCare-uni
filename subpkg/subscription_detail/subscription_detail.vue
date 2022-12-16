@@ -18,7 +18,7 @@
       <view class="panel">
         <view class="panel-title">订阅发起人</view>
         <view class="panel-body">
-          <image :src="subscription.user.avatarUrl"></image>
+          <image :src="basePath + subscription.user.avatarUrl"></image>
           <view class="panel-info">
             <view>{{subscription.user.nickName}}</view>
             <view class="location">
@@ -31,7 +31,7 @@
       <view class="panel">
         <view class="panel-title">订阅接收人</view>
         <view class="panel-body">
-          <image :src="subscription.acceptUser.avatarUrl"></image>
+          <image :src="basePath + subscription.acceptUser.avatarUrl"></image>
           <view class="panel-info">
             <view>{{subscription.acceptUser.nickName}}</view>
             <view class="location">
