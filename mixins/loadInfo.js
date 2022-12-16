@@ -65,7 +65,7 @@ export default {
         pageNum: pageNum,
         pageSize: pageSize
       })
-      console.log('res', res)
+      // console.log('res', res)
       if (res.statusCode !== 200) return
       return res.data
     },

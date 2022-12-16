@@ -48,13 +48,28 @@
           <view>{{traceInfo.length}}</view>
         </view>
       </view>
+
+      <!-- 第四个：删除好友面板 -->
+      <view class="panel">
+        <view class="panel-title del-contact" @click="deleteContact">
+          <view style="color: red;">删除好友</view>
+        </view>
+      </view>
     </view>
   </view>
 </template>
 
 <script>
+  import {
+    mapState
+  } from 'vuex';
+  import loadInfo from '@/mixins/loadInfo.js';
   export default {
     name: "my-contactinfo",
+    mixins: [loadInfo],
+    computed: {
+      ...mapState('m_user', ['userinfo']),
+    },
     props: {
       contactInfo: {
         type: Object
@@ -87,6 +102,22 @@
           url: "/subpkg/trace_list/trace_list?traceInfo=" + encodeURIComponent(JSON.stringify(this.traceInfo))
         })
       },
+      async deleteContact() {
+        const [err, succ] = await uni.showModal({
+          title: '提示',
+          content: '确认删除好友吗？'
+        }).catch(err => err)
+        if (succ && succ.confirm) {
+          const res = await uni.$http.delete("/contacts?userId=" + this.userinfo.userId + "&acceptUserId=" +
+            this.contactInfo.userId)
+          console.log("res", res)
+          if (res.statusCode !== 200) return
+          this.load()
+          uni.switchTab({
+            url: '/pages/contacts/contacts'
+          })
+        }
+      }
     }
   }
 </script>
@@ -153,6 +184,11 @@
           height: 100rpx;
           padding: 10rpx;
         }
+      }
+
+      .del-contact {
+        display: flex;
+        justify-content: center;
       }
     }
   }

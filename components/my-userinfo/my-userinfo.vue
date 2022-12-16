@@ -39,7 +39,7 @@
       <!-- 第二个面板 -->
       <view class="panel">
         <!-- 面板的标题 -->
-        <view class="panel-title">频道订阅信息</view>
+        <view class="panel-title">信息通知</view>
         <!-- 面板的主体 -->
         <view class="panel-body">
           <!-- 面板主体中的 item 项 -->
@@ -95,7 +95,7 @@
       ...mapState('m_user', ['userinfo', 'contactInfo', 'todayPostingInfo', 'myPostingInfo', 'myTraceInfo']),
     },
     created() {
-      // this.load()
+      this.load()
     },
     data() {
       return {
