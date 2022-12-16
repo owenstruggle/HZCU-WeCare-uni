@@ -18,16 +18,19 @@
       this.type = options.type
     },
     onShow() {
+      let tempSubscription = []
       if (this.type === '0') {
         // 个人订阅
         this.subscriptionInfo.forEach(e => {
-          if (e.userId === this.userinfo.userId && e.acceptUserId === this.userinfo.userId) this.subscription.push(e)
+          if (e.userId === this.userinfo.userId && e.acceptUserId === this.userinfo.userId) tempSubscription.push(e)
         })
+        this.subscription = tempSubscription
       } else if (this.type === '1') {
         // 订阅申请
         this.subscriptionInfo.forEach(e => {
-          if (e.userId !== this.userinfo.userId && e.acceptUserId === this.userinfo.userId) this.subscription.push(e)
+          if (e.userId !== this.userinfo.userId && e.acceptUserId === this.userinfo.userId) tempSubscription.push(e)
         })
+        this.subscription = tempSubscription
       } else {
         // 全部订阅
         this.subscription = Object.assign([], this.subscriptionInfo)
