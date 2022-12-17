@@ -57,6 +57,10 @@
                     "path" : "friend_application/friend_application",
                     "style" : {}
                 }
+                ,{
+                    "path" : "release_posting/release_posting",
+                    "style" : {}
+                }
             ]
   }],
   "tabBar": {

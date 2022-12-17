@@ -74,12 +74,17 @@
           }
         })
       },
+      gotoReleasePosting() {
+        uni.navigateTo({
+          url: "/subpkg/release_posting/release_posting"
+        })
+      },
       // 点击按钮 
       clickBtn: function(btn) {
         this.show = false; // 让悬浮窗收回   
         console.log('点击了：' + btn.text);
         if (btn.text === "发布动态") {
-
+          this.gotoReleasePosting()
         } else if (btn.text === "添加好友") {
           this.addFriend()
         }
