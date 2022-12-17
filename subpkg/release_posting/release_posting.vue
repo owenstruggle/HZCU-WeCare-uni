@@ -182,7 +182,7 @@
           } else {
             imageSrc = "/posting/media/imgDefault.png"
           }
-          
+
           const res = await uni.$http.post('/home/posting', {
             traceId: traceId,
             postingName: _self.postingName,
@@ -203,9 +203,11 @@
       async releasePosting() {
         if (this.postingName === '') {
           uni.$showMsg("请输入动态名")
+          return
         }
         if (this.postingDescription === '') {
           uni.$showMsg("请输入动态详细信息")
+          return
         }
 
         const traceId = await this.createTrace()
