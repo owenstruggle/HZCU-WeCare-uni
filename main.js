@@ -29,7 +29,8 @@ import { $http } from '@escook/request-miniprogram'
 
 uni.$http = $http
 // 配置请求根路径
-$http.baseUrl = 'https://localhost:8082'
+// $http.baseUrl = 'https://localhost:8082'
+$http.baseUrl = 'https://121.199.66.137:8082'
 
 // 请求开始之前做一些事情
 $http.beforeRequest = function (options) {
