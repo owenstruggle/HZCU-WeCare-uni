@@ -1,10 +1,12 @@
 <template>
   <view class="panel">
-    <image :src="basePath + postingInfo.postingImageSrc"></image>
+    <view class="img">
+      <image :src="basePath + postingInfo.postingImageSrc" mode="widthFix"></image>
+    </view>
     <view class="panel-info">
       <view class="panel-postingname">{{postingInfo.postingName}}</view>
       <view>发布日期：{{postingInfo.trace.traceTime}}</view>
-      <view>发布位置：{{postingInfo.trace.longitude + ', ' + postingInfo.trace.latitude}}
+      <view>发布位置：{{postingInfo.trace.longitude.toFixed(4) + ', ' + postingInfo.trace.latitude.toFixed(4)}}
       </view>
     </view>
   </view>
@@ -36,13 +38,24 @@
     width: 650rpx;
     align-items: center;
 
-    image {
+    .img {
+      border: 1rpx solid #efefef;
       width: 180rpx;
       height: 180rpx;
-      padding: 0 20rpx 0 20rpx;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+      image {
+        width: 100%;
+        height: 100%;
+        padding: 0 20rpx 0 20rpx;
+      }
     }
 
     .panel-info {
+      margin-left: 20rpx;
+      display: flex;
       flex-direction: column;
       font-size: 25rpx;
 
