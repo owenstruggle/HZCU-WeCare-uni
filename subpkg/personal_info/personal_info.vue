@@ -16,7 +16,7 @@
         <text v-if="userinfo.gender === false">男</text>
         <text v-else>女</text>
       </view>
-      <view class="panel-list-item">
+      <view class="panel-list-item" @click="changePhoneNumber">
         <text>手机号</text>
         <text v-if="userinfo.phoneNumber === ''">未知</text>
         <text v-else>{{userinfo.phoneNumber}}</text>
@@ -87,9 +87,39 @@
         if (res.statusCode !== 200) {
           uni.$showMsg('更新失败')
         }
-        this.updateUserInfo(res.data)
         this.load()
         uni.$showMsg('更新成功')
+      },
+      async changePhoneNumber() {
+        uni.showModal({
+          title: '修改手机号',
+          confirmColor: '#3A3A3A',
+          cancelColor: '#999999',
+          confirmText: '保存',
+          editable: true,
+          async success(res) {
+            console.log('showModal res', res)
+            if (res.cancel === false && res.content !== '') {
+              let query = {
+                userId: _self.userinfo.userId,
+                phoneNumber: res.content
+              }
+              const updateRes = await uni.$http.put('/my/user/phoneNumber', query)
+              if (updateRes.statusCode === 200) {
+                if (updateRes.data === 1) {
+                  uni.$showMsg('更新成功')
+                  _self.load()
+                } else if (updateRes.data === -1) {
+                  uni.$showMsg('手机号已经存在')
+                } else {
+                  uni.$showMsg('更新失败')
+                }
+                return
+              }
+            }
+            uni.$showMsg('更新失败')
+          }
+        })
       },
       changeNickName() {
         this.update_info = Object.assign({}, this.userinfo) // 拷贝值
