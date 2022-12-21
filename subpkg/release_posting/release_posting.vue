@@ -83,7 +83,8 @@
         postingName: '',
         postingDescription: '',
         postingImageSrc: '',
-        tempFilePath: ''
+        tempFilePath: '',
+        updateBasePath: getApp().globalData.updateBasePath
       };
     },
     methods: {
@@ -156,7 +157,7 @@
       },
       async upload(traceId) {
         const uploadRes = await uni.uploadFile({
-          url: 'https://localhost:8082/home/uploadPostingMedia',
+          url: _self.updateBasePath + '/home/uploadPostingMedia',
           filePath: _self.tempFilePath,
           name: "fileUpload",
           formData: {

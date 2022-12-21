@@ -218,7 +218,7 @@
         if (!e.tempFilePaths.length) return;
         const path = e.tempFilePaths.pop();
         const res = await uni.uploadFile({
-          url: 'https://localhost:8082/my/uploadHeadPortrait',
+          url: _self.updateBasePath + '/my/uploadHeadPortrait',
           filePath: path,
           name: "fileUpload",
           formData: {
