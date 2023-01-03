@@ -46,6 +46,7 @@
     },
     onLoad(options) {
       _self = this
+      console.log("channel_detail onload")
       this.getChannelsDetail(options.channelId)
       this.loadRange()
       this.show = true

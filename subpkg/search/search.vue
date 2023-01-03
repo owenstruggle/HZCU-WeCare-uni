@@ -86,8 +86,8 @@
       },
       gotoDetail(channelId) {
         uni.navigateTo({
-          // 指定详情页面的 URL 地址，并传递 channel_id 参数
-          url: '/subpkg/channel_detail/channel_detail?channel_id=' + channelId
+          // 指定详情页面的 URL 地址，并传递 channelId 参数
+          url: '/subpkg/channel_detail/channel_detail?channelId=' + channelId
         })
       },
       // 清空搜索历史记录
