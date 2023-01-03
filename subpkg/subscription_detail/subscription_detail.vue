@@ -41,12 +41,14 @@
         </view>
       </view>
     </view>
-
-    <!-- 商品导航组件 -->
-    <view class="goods_nav">
-      <!-- buttonGroup 右侧按钮的配置项 -->
-      <!-- buttonClick 右侧按钮的点击事件处理函数 -->
-      <uni-goods-nav :fill="true" options="" :buttonGroup="buttonGroup" @click="onClick" @buttonClick="buttonClick" />
+    
+    <view v-if="subscription.acceptUserId == userinfo.userId">
+      <!-- 商品导航组件 -->
+      <view class="goods_nav">
+        <!-- buttonGroup 右侧按钮的配置项 -->
+        <!-- buttonClick 右侧按钮的点击事件处理函数 -->
+        <uni-goods-nav :fill="true" options="" :buttonGroup="buttonGroup" @click="onClick" @buttonClick="buttonClick" />
+      </view>
     </view>
   </view>
 </template>

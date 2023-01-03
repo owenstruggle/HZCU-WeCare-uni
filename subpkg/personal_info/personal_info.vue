@@ -60,10 +60,10 @@
       return {
         basePath: getApp().globalData.basePath,
         update_info: {},
+        updateBasePath: getApp().globalData.updateBasePath,
         imageStyles: {
           width: 100,
           height: 100,
-          updateBasePath: getApp().globalData.updateBasePath,
           border: {
             radius: '50%'
           }
@@ -217,8 +217,10 @@
       async handleSelect(e) {
         if (!e.tempFilePaths.length) return;
         const path = e.tempFilePaths.pop();
+        console.log("path", path)
+        console.log("url", _self.updateBasePath + 'my/uploadHeadPortrait')
         const res = await uni.uploadFile({
-          url: _self.updateBasePath + '/my/uploadHeadPortrait',
+          url: _self.updateBasePath + 'my/uploadHeadPortrait',
           filePath: path,
           name: "fileUpload",
           formData: {
@@ -228,8 +230,8 @@
             "Content-Type": "multipart/form-data",
           }
         });
-        console.log("res", res)
-        if (res[1].statusCode !== 200) {
+        console.log("uploadFileRes", res)
+        if (res.length < 2 || res[1].statusCode !== 200) {
           uni.$showMsg('更新失败')
         } else {
           uni.$showMsg('更新成功')
