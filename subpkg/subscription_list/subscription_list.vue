@@ -35,6 +35,7 @@
         // 全部订阅
         this.subscription = Object.assign([], this.subscriptionInfo)
       }
+      console.log("subscription_list subscription", this.subscription)
     },
     data() {
       return {

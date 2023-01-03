@@ -10,7 +10,7 @@
         <view class="panel-body">
           <view>频道名：{{subscription.channel.channelName}}</view>
           <view>订阅时间：{{subscription.subscriptionTime}}</view>
-          <text v-if="subscription.accept" style="color: green;">订阅状态：已生效</text>
+          <text v-if="subscription.isAccept" style="color: green;">订阅状态：已生效</text>
           <text v-else style="color: red;">订阅状态：等待接受</text>
         </view>
       </view>
@@ -67,7 +67,7 @@
       let subscription = JSON.parse(decodeURIComponent(options.subscription));
       this.subscription = subscription
 
-      if (subscription.userId !== this.userinfo.userId && !subscription.accept) this.buttonGroup.push({
+      if (!subscription.isAccept) this.buttonGroup.push({
         text: '接受',
         backgroundColor: '#5ea66a',
         color: '#fff'
@@ -94,7 +94,7 @@
           uni.$showMsg('更新失败')
           return
         }
-        this.subscription.accept = state
+        this.subscription.isAccept = state
         uni.$showMsg('更新成功')
         await this.loadSubscription()
         uni.navigateBack()

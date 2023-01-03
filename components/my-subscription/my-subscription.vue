@@ -8,7 +8,7 @@
       <view>订阅发起人：{{subscription.user.nickName}}</view>
       <view>接收订阅人：{{subscription.acceptUser.nickName}}</view>
       <view>订阅时间：{{subscription.subscriptionTime}}</view>
-      <view v-if="subscription.accept" style="color: green;">订阅已生效</view>
+      <view v-if="subscription.isAccept" style="color: green;">订阅已生效</view>
       <view v-else style="color: red;">订阅未生效</view>
     </view>
   </view>
